@@ -59,7 +59,7 @@
     const message = getFieldValue(form, "message");
 
     return [
-      "New product inquiry from Wucht Engineering website",
+      "New product inquiry from Wucht Electronics website",
       "",
       `Name: ${name}`,
       `Phone: ${phone}`,
@@ -71,7 +71,7 @@
   }
 
   function getWhatsAppUrl(form) {
-    const businessNumber = form.dataset.whatsappNumber || "919876543210";
+    const businessNumber = form.dataset.whatsappNumber || "919421556284";
     return `https://wa.me/${businessNumber}?text=${encodeURIComponent(buildWhatsAppMessage(form))}`;
   }
 
