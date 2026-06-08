@@ -186,6 +186,17 @@ address {
   background: var(--color-blue-soft);
 }
 
+.btn--whatsapp {
+  background: #2b9c73;
+  color: var(--color-white);
+  box-shadow: 0 10px 24px rgba(43, 156, 115, 0.18);
+}
+
+.btn--whatsapp:hover,
+.btn--whatsapp:focus-visible {
+  background: #237f5f;
+}
+
 .text-link {
   color: var(--color-blue-strong);
   font-weight: 800;
@@ -1012,6 +1023,15 @@ address {
   resize: vertical;
 }
 
+.botcheck {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .form-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1022,6 +1042,14 @@ address {
 .form-status {
   color: var(--color-green);
   font-weight: 800;
+}
+
+.form-status.is-error {
+  color: #b42318;
+}
+
+.form-status.is-loading {
+  color: var(--color-blue-strong);
 }
 
 .contact-method {

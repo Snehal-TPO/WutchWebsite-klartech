@@ -72,31 +72,58 @@
 
       <section class="section">
         <div class="container contact-layout">
-          <form class="inquiry-form" data-success="Thank you. Our engineering team will contact you shortly.">
+          <form
+            class="inquiry-form"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            data-inquiry-form
+            data-success="Thanks for your interest in our product. We&rsquo;ll get back to you soon."
+            data-whatsapp-number="919876543210"
+          >
+            <input type="hidden" name="access_key" value="a03c7b30-1c75-430c-bc3a-c2626ef83a62" data-web3forms-key />
+            <input type="hidden" name="ccemail" value="spol.2722@gmail.com" />
+            <input type="hidden" name="subject" value="New Wucht Engineering product inquiry - please follow up" />
+            <input type="hidden" name="from_name" value="Wucht Engineering Inquiry Desk" />
+            <input type="hidden" name="Owner Notification Email" value="spol.2722@gmail.com" />
+            <input type="hidden" name="Owner Follow-up Note" value="You have received a new product inquiry from the website. Please follow up with this customer." />
+            <input type="hidden" name="Inquiry Source" value="Contact Page" />
+            <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <div class="form-grid">
               <label>
                 <span>Name</span>
-                <input type="text" name="name" autocomplete="name" required />
+                <input type="text" name="name" autocomplete="name" minlength="2" required />
               </label>
               <label>
-                <span>Company Name</span>
-                <input type="text" name="company" autocomplete="organization" required />
+                <span>Phone</span>
+                <input type="tel" name="phone" autocomplete="tel" pattern="[0-9+()\s-]{7,20}" required />
               </label>
               <label>
-                <span>Email Address</span>
+                <span>Email</span>
                 <input type="email" name="email" autocomplete="email" required />
               </label>
               <label>
-                <span>Phone Number</span>
-                <input type="tel" name="phone" autocomplete="tel" required />
+                <span>Product Selected</span>
+                <select name="product_selected" data-product-field required>
+                  <option value="">Select product</option>
+                  <option>Hantek Digital Oscilloscope Series</option>
+                  <option>Hantek USB Scope Modules</option>
+                  <option>Wucht Automation Interface Kit</option>
+                  <option>Wucht Sensor Calibration Fixture</option>
+                  <option>Multi-Channel Industrial Data Logger</option>
+                  <option>Temperature and Humidity Logger</option>
+                  <option>Engineering Equipment</option>
+                  <option>Industrial Automation & Engineering Services</option>
+                  <option>Other / Custom Requirement</option>
+                </select>
               </label>
             </div>
             <label>
               <span>Message</span>
-              <textarea name="message" rows="7" placeholder="Tell us about your product inquiry, measurement requirement, or automation scope." required></textarea>
+              <textarea name="message" rows="7" placeholder="Tell us about your product inquiry, measurement requirement, or automation scope." minlength="10" required></textarea>
             </label>
             <div class="form-actions">
               <button class="btn btn--primary" type="submit">Send Message</button>
+              <a class="btn btn--whatsapp" href="https://wa.me/919876543210" target="_blank" rel="noopener" data-whatsapp-inquiry>WhatsApp Inquiry</a>
               <p class="form-status" role="status" aria-live="polite" data-form-status></p>
             </div>
           </form>
@@ -180,6 +207,6 @@
         </div>
       </div>
     </footer>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=20260608-3"></script>
   </body>
 </html>
