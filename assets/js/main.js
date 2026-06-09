@@ -4,6 +4,16 @@
   const navMenu = document.querySelector("[data-nav-menu]");
   const successMessage = "Thanks for your interest in our product. We\u2019ll get back to you soon.";
 
+  function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function setupPageTransitions() {
+    requestAnimationFrame(() => {
+      body.classList.add("is-page-ready");
+    });
+  }
+
   function setActiveNavigation() {
     const currentPage = body.dataset.page;
     if (!currentPage) return;
@@ -59,7 +69,7 @@
     const message = getFieldValue(form, "message");
 
     return [
-      "New product inquiry from Wucht Engineering website",
+      "New product inquiry from Wucht Electronics website",
       "",
       `Name: ${name}`,
       `Phone: ${phone}`,
@@ -71,7 +81,7 @@
   }
 
   function getWhatsAppUrl(form) {
-    const businessNumber = form.dataset.whatsappNumber || "919876543210";
+    const businessNumber = form.dataset.whatsappNumber || "919421556284";
     return `https://wa.me/${businessNumber}?text=${encodeURIComponent(buildWhatsAppMessage(form))}`;
   }
 
@@ -240,9 +250,94 @@
     }
   }
 
+  function setupRevealMotion() {
+    const revealSelectors = [
+      ".hero__content",
+      ".page-hero__inner",
+      ".catalog-tools",
+      ".section-heading",
+      ".split-grid > *",
+      ".lead-block",
+      ".quote-aside",
+      ".contact-panel",
+      ".inquiry-form",
+      ".cta-band__inner",
+      ".map-frame",
+      ".footer-grid > *",
+    ];
+    const cardSelectors = [
+      ".product-category-card",
+      ".product-card",
+      ".icon-card",
+      ".feature-list article",
+      ".testimonial-card",
+      ".info-card",
+      ".process-list article",
+      ".value-grid article",
+      ".timeline article",
+      ".catalog-card",
+    ];
+
+    const revealElements = new Set(document.querySelectorAll(revealSelectors.join(",")));
+    const cardElements = Array.from(document.querySelectorAll(cardSelectors.join(",")));
+
+    cardElements.forEach((element) => {
+      element.classList.add("motion-card", "reveal-pop");
+      revealElements.add(element);
+    });
+
+    document.querySelectorAll(".product-category-card img, .product-card img, .catalog-card img").forEach((image) => {
+      image.classList.add("motion-image");
+    });
+
+    const elements = Array.from(revealElements).filter((element) => !element.closest(".site-header"));
+
+    elements.forEach((element) => {
+      element.classList.add("reveal-on-scroll");
+
+      const siblings = element.parentElement
+        ? Array.from(element.parentElement.children).filter((child) => revealElements.has(child))
+        : [];
+      const siblingIndex = siblings.indexOf(element);
+      const delay = Math.min(Math.max(siblingIndex, 0) * 65, 260);
+
+      element.style.setProperty("--reveal-delay", `${delay}ms`);
+    });
+
+    if (!elements.length) return;
+
+    if (!("IntersectionObserver" in window) || prefersReducedMotion()) {
+      elements.forEach((element) => {
+        element.classList.add("is-visible");
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.14,
+      }
+    );
+
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
+  }
+
+  setupPageTransitions();
   setActiveNavigation();
   setupMobileNavigation();
   setupQuotePrefill();
   setupInquiryForms();
   setupProductFiltering();
+  setupRevealMotion();
 })();
